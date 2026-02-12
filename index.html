@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Classroom</title>
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Google_Classroom_Logo.svg/960px-Google_Classroom_Logo.svg.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📚</text></svg>">
     <style>
         * {
             margin: 0;
@@ -12,10 +12,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #f8f9fa;
             color: #202124;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Header */
@@ -108,19 +115,21 @@
 
         /* Main Content */
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
             padding: 24px;
             position: relative;
+            flex: 1;
+            overflow-y: auto;
         }
 
         .container::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: -100vw;
-            right: -100vw;
-            bottom: -100vh;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-color: #f1f3f4;
             border-top-left-radius: 24px;
             z-index: -1;
@@ -136,7 +145,7 @@
         /* Class Cards Grid */
         .classes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
             gap: 24px;
             margin-top: 32px;
         }
@@ -164,6 +173,13 @@
             padding: 16px;
             color: white;
             position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .class-header-text {
+            flex: 1;
         }
 
         .class-header.theme-blue {
@@ -189,7 +205,7 @@
         .class-name {
             font-size: 20px;
             font-weight: 500;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -198,6 +214,20 @@
         .class-section {
             font-size: 13px;
             opacity: 0.9;
+        }
+
+        .teacher-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
 
         .class-body {
@@ -218,6 +248,7 @@
             border-top: 1px solid #e0e0e0;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             gap: 8px;
         }
 
@@ -225,6 +256,18 @@
             width: 24px;
             height: 24px;
             color: #5f6368;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #5f6368;
+            border-radius: 50%;
         }
 
         /* Empty State */
@@ -277,96 +320,126 @@
             <!-- Example Class Card 1 -->
             <a href="#" class="class-card">
                 <div class="class-header theme-blue">
-                    <div class="class-name">Math Games</div>
-                    <div class="class-section">Period 1</div>
+                    <div class="class-header-text">
+                        <div class="class-name">Math Games</div>
+                        <div class="class-section">Mr. Smith</div>
+                    </div>
+                    <div class="teacher-icon">S</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Mr. Smith</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
 
             <!-- Example Class Card 2 -->
             <a href="#" class="class-card">
                 <div class="class-header theme-green">
-                    <div class="class-name">Science Adventures</div>
-                    <div class="class-section">Period 2</div>
+                    <div class="class-header-text">
+                        <div class="class-name">Science Adventures</div>
+                        <div class="class-section">Ms. Johnson</div>
+                    </div>
+                    <div class="teacher-icon">J</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Ms. Johnson</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
 
             <!-- Example Class Card 3 -->
             <a href="#" class="class-card">
                 <div class="class-header theme-orange">
-                    <div class="class-name">History Quest</div>
-                    <div class="class-section">Period 3</div>
+                    <div class="class-header-text">
+                        <div class="class-name">History Quest</div>
+                        <div class="class-section">Dr. Williams</div>
+                    </div>
+                    <div class="teacher-icon">W</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Dr. Williams</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
 
             <!-- Example Class Card 4 -->
             <a href="#" class="class-card">
                 <div class="class-header theme-red">
-                    <div class="class-name">English Literature</div>
-                    <div class="class-section">Period 4</div>
+                    <div class="class-header-text">
+                        <div class="class-name">English Literature</div>
+                        <div class="class-section">Mrs. Davis</div>
+                    </div>
+                    <div class="teacher-icon">D</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Mrs. Davis</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
 
             <!-- Example Class Card 5 -->
             <a href="#" class="class-card">
                 <div class="class-header theme-teal">
-                    <div class="class-name">Geography Explorer</div>
-                    <div class="class-section">Period 5</div>
+                    <div class="class-header-text">
+                        <div class="class-name">Geography Explorer</div>
+                        <div class="class-section">Mr. Martinez</div>
+                    </div>
+                    <div class="teacher-icon">M</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Mr. Martinez</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
 
             <!-- Example Class Card 6 -->
             <a href="#" class="class-card">
                 <div class="class-header">
-                    <div class="class-name">Art & Design</div>
-                    <div class="class-section">Period 6</div>
+                    <div class="class-header-text">
+                        <div class="class-name">Art & Design</div>
+                        <div class="class-section">Ms. Anderson</div>
+                    </div>
+                    <div class="teacher-icon">A</div>
                 </div>
                 <div class="class-body">
-                    <div class="class-teacher">Ms. Anderson</div>
+                    <div class="class-teacher"></div>
                 </div>
                 <div class="class-footer">
-                    <svg class="class-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                    <div class="class-icon">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
                 </div>
             </a>
         </div>
