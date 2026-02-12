@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Classroom</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📚</text></svg>">
+    <link rel="icon" type="image/png" href="https://www.gstatic.com/classroom/logo_square_rounded.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,8 +19,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Google Sans', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fff;
             color: #202124;
             display: flex;
             flex-direction: column;
@@ -27,7 +28,7 @@
 
         /* Header */
         .header {
-            background-color: #f8f9fa;
+            background-color: #f1f3f4;
             border-bottom: none;
             padding: 8px 24px;
             display: flex;
@@ -117,7 +118,7 @@
         .container {
             max-width: none;
             margin: 0;
-            padding: 24px;
+            padding: 24px 24px 24px 48px;
             position: relative;
             flex: 1;
             overflow-y: auto;
@@ -130,7 +131,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #f1f3f4;
+            background-color: #fff;
             border-top-left-radius: 24px;
             z-index: -1;
         }
@@ -217,21 +218,25 @@
         }
 
         .teacher-icon {
-            width: 32px;
-            height: 32px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 3px solid #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 600;
             margin-right: 12px;
             flex-shrink: 0;
+            position: absolute;
+            right: 12px;
+            bottom: -24px;
         }
 
         .class-body {
-            padding: 16px;
+            padding: 32px 16px 16px 16px;
             min-height: 160px;
             display: flex;
             align-items: center;
