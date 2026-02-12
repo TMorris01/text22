@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes</title>
+    <title>Home - Classroom</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Google_Classroom_Logo.svg/960px-Google_Classroom_Logo.svg.png">
     <style>
         * {
             margin: 0;
@@ -19,8 +20,8 @@
 
         /* Header */
         .header {
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
+            border-bottom: none;
             padding: 8px 24px;
             display: flex;
             align-items: center;
@@ -40,8 +41,8 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            padding: 4px 0;
+            justify-content: space-between;
+            padding: 3px 0;
         }
 
         .menu-icon span {
@@ -110,6 +111,19 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 24px;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100vw;
+            right: -100vw;
+            bottom: -100vh;
+            background-color: #f1f3f4;
+            border-top-left-radius: 24px;
+            z-index: -1;
         }
 
         .page-title {
@@ -145,7 +159,7 @@
         }
 
         .class-header {
-            height: 100px;
+            height: 80px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 16px;
             color: white;
@@ -188,6 +202,9 @@
 
         .class-body {
             padding: 16px;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
         }
 
         .class-teacher {
@@ -223,31 +240,6 @@
             margin: 0 auto 24px;
             opacity: 0.3;
         }
-
-        /* Add button */
-        .add-button {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: background-color 0.2s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .add-button:hover {
-            background-color: #1557b0;
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body>
@@ -261,7 +253,7 @@
             </div>
             <a href="#" class="logo">
                 <div class="logo-icon">C</div>
-                <span>Classes</span>
+                <span>Classroom</span>
             </a>
         </div>
         <div class="header-right">
@@ -380,8 +372,7 @@
         </div>
     </div>
 
-    <!-- Floating Add Button -->
-    <button class="add-button" title="Add class">+</button>
+
 
     <script>
         // Add your custom JavaScript here
