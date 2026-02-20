@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Classroom</title>
-    <link rel="icon" type="image/png" href="https://www.gstatic.com/classroom/logo_square_rounded.svg">
+    <link rel="icon" href="https://www.gstatic.com/classroom/logo_square_rounded.svg">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Google Sans', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fff;
+            background-color: #f1f3f4;
             color: #202124;
             display: flex;
             flex-direction: column;
@@ -35,6 +35,9 @@
             align-items: center;
             justify-content: space-between;
             height: 64px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
         }
 
         .header-left {
@@ -72,14 +75,14 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
+        }
+
+        .logo-icon img {
+            width: 40px;
+            height: 40px;
         }
 
         .header-right {
@@ -103,7 +106,7 @@
         }
 
         .icon-button:hover {
-            background-color: #f1f3f4;
+            background-color: #e8eaed;
         }
 
         .profile-pic {
@@ -114,26 +117,28 @@
             cursor: pointer;
         }
 
-        /* Main Content */
-        .container {
-            max-width: none;
-            margin: 0;
-            padding: 24px 24px 24px 48px;
-            position: relative;
+        /* Layout wrapper below header */
+        .layout {
+            display: flex;
             flex: 1;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
-        .container::before {
-            content: '';
-            position: fixed;
-            top: 64px;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        /* Left sidebar column */
+        .sidebar {
+            width: 5%;
+            min-width: 56px;
+            background-color: #f1f3f4;
+            flex-shrink: 0;
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
             background-color: #fff;
             border-top-left-radius: 24px;
-            z-index: -1;
+            padding: 24px 24px 24px 32px;
+            overflow-y: auto;
         }
 
         .page-title {
@@ -146,7 +151,7 @@
         /* Class Cards Grid */
         .classes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
+            grid-template-columns: repeat(3, minmax(0, 300px));
             gap: 24px;
             margin-top: 32px;
         }
@@ -154,13 +159,14 @@
         .class-card {
             background: white;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible; /* allow teacher icon to overflow */
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             cursor: pointer;
             transition: box-shadow 0.3s, transform 0.2s;
             text-decoration: none;
             color: inherit;
             display: block;
+            position: relative;
         }
 
         .class-card:hover {
@@ -168,21 +174,26 @@
             transform: translateY(-2px);
         }
 
+        /* Clip the card header overflow but not the whole card */
+        .class-card-inner {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
         .class-header {
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100px;
             padding: 16px;
             color: white;
             position: relative;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+            /* Default gradient - easily swap background for an image: */
+            /* background-image: url('your-image.jpg'); background-size: cover; background-position: center; */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .class-header-text {
-            flex: 1;
-        }
-
+        /* Theme color variants */
         .class-header.theme-blue {
             background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
         }
@@ -203,6 +214,17 @@
             background: linear-gradient(135deg, #00897b 0%, #26a69a 100%);
         }
 
+        /* Image background variant — add class="class-header theme-image" and set inline style="background-image:url(...)" */
+        .class-header.theme-image {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .class-header-text {
+            flex: 1;
+        }
+
         .class-name {
             font-size: 20px;
             font-weight: 500;
@@ -217,39 +239,40 @@
             opacity: 0.9;
         }
 
+        /* Teacher icon overlaps the bottom edge of the header */
         .teacher-icon {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 3px solid #fff;
+            background-color: #e8f0fe;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 600;
-            margin-right: 12px;
-            flex-shrink: 0;
+            color: #1a73e8;
             position: absolute;
-            right: 12px;
-            bottom: -24px;
+            right: 16px;
+            /* sit halfway below the header (header is 100px, icon is 56px) */
+            bottom: -28px;
+            z-index: 2;
+            /* Image support: set background-image inline and add .has-image class */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* When teacher icon has an image, hide the letter */
+        .teacher-icon.has-image span {
+            display: none;
         }
 
         .class-body {
-            padding: 32px 16px 16px 16px;
-            min-height: 160px;
-            display: flex;
-            align-items: center;
-        }
-
-        .class-teacher {
-            font-size: 13px;
-            color: #5f6368;
-            margin-bottom: 16px;
+            padding: 40px 16px 16px 16px;
+            min-height: 80px;
         }
 
         .class-footer {
-            padding: 16px;
+            padding: 12px 16px;
             border-top: 1px solid #e0e0e0;
             display: flex;
             justify-content: flex-end;
@@ -274,20 +297,6 @@
             background-color: #5f6368;
             border-radius: 50%;
         }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 64px 24px;
-            color: #5f6368;
-        }
-
-        .empty-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 24px;
-            opacity: 0.3;
-        }
     </style>
 </head>
 <body>
@@ -300,7 +309,9 @@
                 <span></span>
             </div>
             <a href="#" class="logo">
-                <div class="logo-icon" href="https://www.gstatic.com/classroom/logo_square_rounded.svg"></div>
+                <div class="logo-icon">
+                    <img src="https://www.gstatic.com/classroom/logo_square_rounded.svg" alt="Classroom logo">
+                </div>
                 <span>Classroom</span>
             </a>
         </div>
@@ -319,150 +330,165 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="classes-grid">
-            <!-- Example Class Card 1 -->
-            <a href="#" class="class-card">
-                <div class="class-header theme-blue">
-                    <div class="class-header-text">
-                        <div class="class-name">Math Games</div>
-                        <div class="class-section">Mr. Smith</div>
-                    </div>
-                    <div class="teacher-icon">S</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </a>
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Left sidebar (same color as header) -->
+        <div class="sidebar"></div>
 
-            <!-- Example Class Card 2 -->
-            <a href="#" class="class-card">
-                <div class="class-header theme-green">
-                    <div class="class-header-text">
-                        <div class="class-name">Science Adventures</div>
-                        <div class="class-section">Ms. Johnson</div>
-                    </div>
-                    <div class="teacher-icon">J</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </a>
+        <!-- Main white content area with top-left rounded corner -->
+        <div class="container">
+            <div class="classes-grid">
 
-            <!-- Example Class Card 3 -->
-            <a href="#" class="class-card">
-                <div class="class-header theme-orange">
-                    <div class="class-header-text">
-                        <div class="class-name">History Quest</div>
-                        <div class="class-section">Dr. Williams</div>
+                <!-- Card 1: Gradient background example -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header theme-blue">
+                            <div class="class-header-text">
+                                <div class="class-name">Math Games</div>
+                                <div class="class-section">Mr. Smith</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="teacher-icon">W</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </a>
+                    <div class="teacher-icon"><span>S</span></div>
+                </a>
 
-            <!-- Example Class Card 4 -->
-            <a href="#" class="class-card">
-                <div class="class-header theme-red">
-                    <div class="class-header-text">
-                        <div class="class-name">English Literature</div>
-                        <div class="class-section">Mrs. Davis</div>
+                <!-- Card 2 -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header theme-green">
+                            <div class="class-header-text">
+                                <div class="class-name">Science Adventures</div>
+                                <div class="class-section">Ms. Johnson</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="teacher-icon">D</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </a>
+                    <div class="teacher-icon" style="background-color:#e6f4ea; color:#0f9d58;"><span>J</span></div>
+                </a>
 
-            <!-- Example Class Card 5 -->
-            <a href="#" class="class-card">
-                <div class="class-header theme-teal">
-                    <div class="class-header-text">
-                        <div class="class-name">Geography Explorer</div>
-                        <div class="class-section">Mr. Martinez</div>
+                <!-- Card 3: IMAGE background example — swap the url() to use your own image -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header theme-orange">
+                            <div class="class-header-text">
+                                <div class="class-name">History Quest</div>
+                                <div class="class-section">Dr. Williams</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="teacher-icon">M</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            </a>
+                    <div class="teacher-icon" style="background-color:#fce8e6; color:#d93025;"><span>W</span></div>
+                </a>
 
-            <!-- Example Class Card 6 -->
-            <a href="#" class="class-card">
-                <div class="class-header">
-                    <div class="class-header-text">
-                        <div class="class-name">Art & Design</div>
-                        <div class="class-section">Ms. Anderson</div>
+                <!-- Card 4 -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header theme-red">
+                            <div class="class-header-text">
+                                <div class="class-name">English Literature</div>
+                                <div class="class-section">Mrs. Davis</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="teacher-icon">A</div>
-                </div>
-                <div class="class-body">
-                    <div class="class-teacher"></div>
-                </div>
-                <div class="class-footer">
-                    <div class="class-icon">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
+                    <div class="teacher-icon" style="background-color:#fce8e6; color:#ea4335;"><span>D</span></div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header theme-teal">
+                            <div class="class-header-text">
+                                <div class="class-name">Geography Explorer</div>
+                                <div class="class-section">Mr. Martinez</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </a>
+                    <div class="teacher-icon" style="background-color:#e6f4f4; color:#00897b;"><span>M</span></div>
+                </a>
+
+                <!-- Card 6: Example with IMAGE header background -->
+                <!--
+                    To use an image header, add class="class-header theme-image" and set style="background-image: url('your-image-url.jpg')"
+                    The image will always fill the header area without distorting the card shape.
+                -->
+                <a href="#" class="class-card">
+                    <div class="class-card-inner">
+                        <div class="class-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="class-header-text">
+                                <div class="class-name">Art &amp; Design</div>
+                                <div class="class-section">Ms. Anderson</div>
+                            </div>
+                        </div>
+                        <div class="class-body"></div>
+                        <div class="class-footer">
+                            <div class="class-icon">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="teacher-icon" style="background-color:#f3e8fd; color:#764ba2;"><span>A</span></div>
+                </a>
+
+            </div>
         </div>
     </div>
 
-
-
     <script>
-        // Add your custom JavaScript here
-        // Example: Handle class card clicks
         document.querySelectorAll('.class-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Replace with your game links
                 console.log('Class card clicked:', this.querySelector('.class-name').textContent);
-                // Example: window.location.href = 'your-game-url';
             });
         });
+
+        /*
+        HOW TO USE AN IMAGE AS A CLASS HEADER BACKGROUND:
+        Replace the class-header div's class and style like this:
+
+        <div class="class-header theme-image" style="background-image: url('https://your-image-url.jpg');">
+
+        The image will automatically cover the header area without changing the card shape.
+        */
     </script>
 </body>
 </html>
