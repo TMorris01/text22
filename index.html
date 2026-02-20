@@ -126,10 +126,50 @@
 
         /* Left sidebar column */
         .sidebar {
-            width: 5%;
-            min-width: 56px;
+            width: 72px;
+            min-width: 72px;
             background-color: #f1f3f4;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 8px;
+            gap: 4px;
+        }
+
+        .sidebar-item {
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #444746;
+            gap: 2px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background-color: #e8eaed;
+        }
+
+        .sidebar-item.active {
+            background-color: #c2e7ff;
+            color: #001d35;
+        }
+
+        .sidebar-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .sidebar-label {
+            font-size: 10px;
+            font-weight: 500;
+            font-family: 'Google Sans', sans-serif;
         }
 
         /* Main Content */
@@ -181,8 +221,8 @@
         }
 
         .class-header {
-            height: 100px;
-            padding: 16px;
+            height: 96px;
+            padding: 14px 16px;
             color: white;
             position: relative;
             display: flex;
@@ -191,6 +231,7 @@
             /* Default gradient - easily swap background for an image: */
             /* background-image: url('your-image.jpg'); background-size: cover; background-position: center; */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
         }
 
         /* Theme color variants */
@@ -241,54 +282,58 @@
 
         /* Teacher icon overlaps the bottom edge of the header */
         .teacher-icon {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             background-color: #e8f0fe;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            font-weight: 600;
+            font-size: 26px;
+            font-weight: 500;
             color: #1a73e8;
             position: absolute;
             right: 16px;
-            /* sit halfway below the header (header is 100px, icon is 56px) */
-            bottom: -28px;
+            bottom: -32px;
             z-index: 2;
-            /* Image support: set background-image inline and add .has-image class */
             background-size: cover;
             background-position: center;
         }
 
-        /* When teacher icon has an image, hide the letter */
         .teacher-icon.has-image span {
             display: none;
         }
 
         .class-body {
-            padding: 40px 16px 16px 16px;
-            min-height: 80px;
+            padding: 44px 16px 12px 16px;
+            min-height: 100px;
         }
 
         .class-footer {
-            padding: 12px 16px;
+            padding: 8px 12px;
             border-top: 1px solid #e0e0e0;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 16px;
         }
 
-        .class-icon {
-            width: 24px;
-            height: 24px;
-            color: #5f6368;
+        .footer-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            color: #5f6368;
+            transition: background-color 0.2s;
+        }
+
+        .footer-btn:hover {
+            background-color: #f1f3f4;
         }
 
         .dot {
@@ -333,13 +378,34 @@
     <!-- Layout -->
     <div class="layout">
         <!-- Left sidebar (same color as header) -->
-        <div class="sidebar"></div>
+        <div class="sidebar">
+            <a href="#" class="sidebar-item active">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span class="sidebar-label">Home</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>
+                <span class="sidebar-label">Calendar</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                <span class="sidebar-label">Enrolled</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1 0-2 .9-2 2v18l4-4h14c1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <span class="sidebar-label">To-do</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+                <span class="sidebar-label">Settings</span>
+            </a>
+        </div>
 
         <!-- Main white content area with top-left rounded corner -->
         <div class="container">
             <div class="classes-grid">
 
-                <!-- Card 1: Gradient background example -->
+                <!-- Card 1 -->
                 <a href="#" class="class-card">
                     <div class="class-card-inner">
                         <div class="class-header theme-blue">
@@ -350,11 +416,9 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon"><span>S</span></div>
@@ -371,17 +435,15 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon" style="background-color:#e6f4ea; color:#0f9d58;"><span>J</span></div>
                 </a>
 
-                <!-- Card 3: IMAGE background example — swap the url() to use your own image -->
+                <!-- Card 3 -->
                 <a href="#" class="class-card">
                     <div class="class-card-inner">
                         <div class="class-header theme-orange">
@@ -392,11 +454,9 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon" style="background-color:#fce8e6; color:#d93025;"><span>W</span></div>
@@ -413,11 +473,9 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon" style="background-color:#fce8e6; color:#ea4335;"><span>D</span></div>
@@ -434,20 +492,17 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon" style="background-color:#e6f4f4; color:#00897b;"><span>M</span></div>
                 </a>
 
-                <!-- Card 6: Example with IMAGE header background -->
+                <!-- Card 6 -->
                 <!--
                     To use an image header, add class="class-header theme-image" and set style="background-image: url('your-image-url.jpg')"
-                    The image will always fill the header area without distorting the card shape.
                 -->
                 <a href="#" class="class-card">
                     <div class="class-card-inner">
@@ -459,11 +514,9 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <div class="class-icon">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
+                            <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
                     </div>
                     <div class="teacher-icon" style="background-color:#f3e8fd; color:#764ba2;"><span>A</span></div>
