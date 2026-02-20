@@ -337,24 +337,34 @@ const THEMES = {
     indigo: { icon_bg: '#e8eaf6', icon_fg: '#3949ab', swatch_bg: '#3949ab' },
 };
 
-// ── CLASS DEFAULTS (names are fixed) ─────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+//  ✏️  EDIT YOUR CLASSES HERE
+//  name    → the class title shown on the card
+//  url     → where clicking the card takes you (use '' to do nothing)
+//  teacher → default teacher name (can also be changed in the drawer)
+//  letter  → default icon letter  (can also be changed in the drawer)
+//  theme   → default color        (can also be changed in the drawer)
+//            options: 'blue' | 'green' | 'orange' | 'red' | 'teal' | 'purple' | 'pink' | 'indigo'
+// ════════════════════════════════════════════════════════════════
 const DEFAULTS = [
-    { name: 'Math Games',         teacher: 'Mr. Smith',    letter: 'S', theme: 'blue'   },
-    { name: 'Science Adventures', teacher: 'Ms. Johnson',  letter: 'J', theme: 'green'  },
-    { name: 'History Quest',      teacher: 'Dr. Williams', letter: 'W', theme: 'orange' },
-    { name: 'English Literature', teacher: 'Mrs. Davis',   letter: 'D', theme: 'red'    },
-    { name: 'Geography Explorer', teacher: 'Mr. Martinez', letter: 'M', theme: 'teal'   },
-    { name: 'Art & Design',       teacher: 'Ms. Anderson', letter: 'A', theme: 'purple' },
+    { name: 'Math Games',         url: '',  teacher: 'Mr. Smith',    letter: 'S', theme: 'blue'   },
+    { name: 'Science Adventures', url: '',  teacher: 'Ms. Johnson',  letter: 'J', theme: 'green'  },
+    { name: 'History Quest',      url: '',  teacher: 'Dr. Williams', letter: 'W', theme: 'orange' },
+    { name: 'English Literature', url: '',  teacher: 'Mrs. Davis',   letter: 'D', theme: 'red'    },
+    { name: 'Geography Explorer', url: '',  teacher: 'Mr. Martinez', letter: 'M', theme: 'teal'   },
+    { name: 'Art & Design',       url: '',  teacher: 'Ms. Anderson', letter: 'A', theme: 'purple' },
 ];
+// ════════════════════════════════════════════════════════════════
 
 // ── PERSISTENCE ───────────────────────────────────────────────────────────────
 function loadClasses() {
     try {
         const saved = JSON.parse(localStorage.getItem('classroomEdits') || 'null');
         if (saved && saved.length === DEFAULTS.length) {
-            // Always use fixed names from DEFAULTS; only restore teacher/letter/theme
+            // name and url always come from DEFAULTS (edit them in the code)
             return DEFAULTS.map((def, i) => ({
                 name:    def.name,
+                url:     def.url,
                 teacher: saved[i].teacher ?? def.teacher,
                 letter:  saved[i].letter  ?? def.letter,
                 theme:   saved[i].theme   ?? def.theme,
@@ -411,7 +421,10 @@ function renderCards() {
             <div class="teacher-icon" style="background-color:${t.icon_bg}; color:${t.icon_fg};">
                 <span>${esc(c.letter)}</span>
             </div>`;
-        card.addEventListener('click', e => e.preventDefault());
+        card.addEventListener('click', e => {
+            e.preventDefault();
+            if (c.url) window.location.href = c.url;
+        });
         grid.appendChild(card);
     });
 }
