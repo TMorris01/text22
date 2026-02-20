@@ -337,8 +337,8 @@ const THEMES = {
     indigo: { icon_bg: '#e8eaf6', icon_fg: '#3949ab', swatch_bg: '#3949ab' },
 };
 
-// ── CLASS DATA ────────────────────────────────────────────────────────────────
-let classes = [
+// ── CLASS DEFAULTS (names are fixed) ─────────────────────────────────────────
+const DEFAULTS = [
     { name: 'Math Games',         teacher: 'Mr. Smith',    letter: 'S', theme: 'blue'   },
     { name: 'Science Adventures', teacher: 'Ms. Johnson',  letter: 'J', theme: 'green'  },
     { name: 'History Quest',      teacher: 'Dr. Williams', letter: 'W', theme: 'orange' },
@@ -346,6 +346,31 @@ let classes = [
     { name: 'Geography Explorer', teacher: 'Mr. Martinez', letter: 'M', theme: 'teal'   },
     { name: 'Art & Design',       teacher: 'Ms. Anderson', letter: 'A', theme: 'purple' },
 ];
+
+// ── PERSISTENCE ───────────────────────────────────────────────────────────────
+function loadClasses() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('classroomEdits') || 'null');
+        if (saved && saved.length === DEFAULTS.length) {
+            // Always use fixed names from DEFAULTS; only restore teacher/letter/theme
+            return DEFAULTS.map((def, i) => ({
+                name:    def.name,
+                teacher: saved[i].teacher ?? def.teacher,
+                letter:  saved[i].letter  ?? def.letter,
+                theme:   saved[i].theme   ?? def.theme,
+            }));
+        }
+    } catch(e) {}
+    return DEFAULTS.map(d => ({ ...d }));
+}
+
+function saveClasses(data) {
+    // Only persist the editable fields
+    const toSave = data.map(c => ({ teacher: c.teacher, letter: c.letter, theme: c.theme }));
+    localStorage.setItem('classroomEdits', JSON.stringify(toSave));
+}
+
+let classes = loadClasses();
 let draft = [];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -421,10 +446,6 @@ function buildDrawer() {
             <div class="edit-row-body">
                 <div class="edit-row-fields">
                     <div>
-                        <div class="field-label">Class Name</div>
-                        <input class="field-input full" type="text" data-field="name" data-idx="${i}" value="${esc(c.name)}" placeholder="Class name">
-                    </div>
-                    <div>
                         <div class="field-label">Teacher Name</div>
                         <input class="field-input full" type="text" data-field="teacher" data-idx="${i}" value="${esc(c.teacher)}" placeholder="Teacher name">
                     </div>
@@ -454,10 +475,11 @@ function buildDrawer() {
         input.addEventListener('input', () => {
             const idx = +input.dataset.idx;
             const field = input.dataset.field;
-            draft[idx][field] = input.value;
+            let val = input.value;
+            if (field === 'letter') val = val.toUpperCase().slice(0, 2);
+            draft[idx][field] = val;
             const row = body.querySelector(`.edit-row[data-index="${idx}"]`);
-            if (field === 'name')    row.querySelector('.edit-row-classname').textContent = input.value;
-            if (field === 'teacher') row.querySelector('.edit-row-teacher').textContent = input.value;
+            if (field === 'teacher') row.querySelector('.edit-row-teacher').textContent = val;
         });
     });
 
@@ -492,6 +514,7 @@ function closeDrawer() {
 
 function saveDrawer() {
     classes = draft.map(c => ({ ...c }));
+    saveClasses(classes);   // persist to localStorage
     renderCards();
     closeDrawer();
 }
