@@ -47,8 +47,8 @@
         }
 
         .menu-icon {
-            width: 20px;
-            height: 16px;
+            width: 18px;
+            height: 13px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -67,7 +67,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 18px;
+            font-size: 22px;
             color: #202124;
             text-decoration: none;
         }
@@ -172,6 +172,10 @@
 
         .sidebar-item.gap-above {
             margin-top: 12px;
+        }
+
+        .sidebar-item.gap-below {
+            margin-bottom: 12px;
         }
 
         /* Main Content */
@@ -316,7 +320,7 @@
             padding: 8px 12px;
             border-top: 1px solid #e0e0e0;
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-end;
             align-items: center;
             gap: 4px;
         }
@@ -390,7 +394,7 @@
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>
                 <span class="sidebar-label">Calendar</span>
             </a>
-            <a href="#" class="sidebar-item gap-above">
+            <a href="#" class="sidebar-item gap-above gap-below">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
                 <span class="sidebar-label">Enrolled</span>
             </a>
