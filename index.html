@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Google Sans', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f1f3f4;
+            background-color: #e8eaed;
             color: #202124;
             display: flex;
             flex-direction: column;
@@ -28,7 +28,7 @@
 
         /* Header */
         .header {
-            background-color: #f1f3f4;
+            background-color: #e8eaed;
             border-bottom: none;
             padding: 8px 24px;
             display: flex;
@@ -47,13 +47,13 @@
         }
 
         .menu-icon {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 16px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 3px 0;
+            padding: 0;
         }
 
         .menu-icon span {
@@ -66,23 +66,23 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 22px;
-            color: #5f6368;
+            gap: 6px;
+            font-size: 18px;
+            color: #80868b;
             text-decoration: none;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .logo-icon img {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
         }
 
         .header-right {
@@ -128,7 +128,7 @@
         .sidebar {
             width: 72px;
             min-width: 72px;
-            background-color: #f1f3f4;
+            background-color: #e8eaed;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -139,8 +139,8 @@
 
         .sidebar-item {
             width: 56px;
-            height: 56px;
-            border-radius: 28px;
+            height: 40px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -153,7 +153,7 @@
         }
 
         .sidebar-item:hover {
-            background-color: #e8eaed;
+            background-color: #d3d5d8;
         }
 
         .sidebar-item.active {
@@ -162,14 +162,12 @@
         }
 
         .sidebar-item svg {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
         }
 
         .sidebar-label {
-            font-size: 10px;
-            font-weight: 500;
-            font-family: 'Google Sans', sans-serif;
+            display: none;
         }
 
         /* Main Content */
@@ -282,20 +280,21 @@
 
         /* Teacher icon overlaps the bottom edge of the header */
         .teacher-icon {
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background-color: #e8f0fe;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 500;
             color: #1a73e8;
             position: absolute;
             right: 16px;
-            bottom: -32px;
-            z-index: 2;
+            /* header is 96px tall, icon is 60px, overlap by half = 30px */
+            top: calc(96px - 30px);
+            z-index: 3;
             background-size: cover;
             background-position: center;
         }
@@ -416,7 +415,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
@@ -435,7 +434,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
@@ -454,7 +453,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
@@ -473,7 +472,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
@@ -492,7 +491,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
@@ -514,7 +513,7 @@
                         </div>
                         <div class="class-body"></div>
                         <div class="class-footer">
-                            <button class="footer-btn" title="Classwork"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H3v-2h8v2zm0-4H3V7h8v2zm9 8h-7V7h7v10z"/></svg></button>
+                            <button class="footer-btn" title="Photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg></button>
                             <button class="footer-btn" title="Folder"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg></button>
                             <button class="footer-btn" title="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                         </div>
