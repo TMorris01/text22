@@ -339,20 +339,26 @@ const THEMES = {
 
 // ════════════════════════════════════════════════════════════════
 //  ✏️  EDIT YOUR CLASSES HERE
-//  name    → the class title shown on the card
+//  name    → the class title (default — also changeable in the drawer)
 //  url     → where clicking the card takes you (use '' to do nothing)
-//  teacher → default teacher name (can also be changed in the drawer)
+//  teacher → teacher name shown on the card (fixed — only editable here in code)
 //  letter  → default icon letter  (can also be changed in the drawer)
 //  theme   → default color        (can also be changed in the drawer)
 //            options: 'blue' | 'green' | 'orange' | 'red' | 'teal' | 'purple' | 'pink' | 'indigo'
+//  cardClass → a CSS class added to the card so you can select it in code
+//              e.g. 'minecraft-btn' lets you do: document.querySelectorAll('.minecraft-btn')
 // ════════════════════════════════════════════════════════════════
+// ─── TO ADD A NEW CLASS: copy the line below and paste it at the end of the list ───
+//  { name: 'New Class', url: '', teacher: 'Mr. Name', letter: 'N', theme: 'blue', cardClass: '' },
+// ────────────────────────────────────────────────────────────────────────────────────
 const DEFAULTS = [
-    { name: 'Gn-Math',         url: 'https://tmorris01.github.io/gnlinks/esky.html',  teacher: 'TMorris',    letter: 'S', theme: 'blue'   },
-    { name: 'Science Adventures', url: '',  teacher: 'Ms. Johnson',  letter: 'J', theme: 'green'  },
-    { name: 'History Quest',      url: '',  teacher: 'Dr. Williams', letter: 'W', theme: 'orange' },
-    { name: 'English Literature', url: '',  teacher: 'Mrs. Davis',   letter: 'D', theme: 'red'    },
-    { name: 'Geography Explorer', url: '',  teacher: 'Mr. Martinez', letter: 'M', theme: 'teal'   },
-    { name: 'Art & Design',       url: '',  teacher: 'Ms. Anderson', letter: 'A', theme: 'purple' },
+    { name: 'Math',         url: 'https://tmorris01.github.io/gnlinks/esky.html',  teacher: 'Gn-Math',    letter: 'G', theme: 'blue',   cardClass: '' },
+    { name: 'Chemistry', url: '',  teacher: 'Minecraft',  letter: 'M', theme: 'green',  cardClass: 'minecraft-btn' },
+    { name: 'Biology', url: 'https://tmorris01.github.io/gnlinks/drive-mad-new', teacher: 'Drive Mad', letter: 'D', theme: 'blue', cardClass: '' },
+    { name: 'History',      url: 'https://tmorris01.github.io/gnlinks/rocketgoal',  teacher: 'Rocketgoal.io', letter: 'R', theme: 'orange', cardClass: '' },
+    { name: 'English', url: 'https://tmorris01.github.io/gnlinks/monkeymart.html',  teacher: 'Monkey Mart',   letter: 'M', theme: 'red',    cardClass: '' },
+    { name: 'Geography', url: '',  teacher: 'Retro Bowl', letter: 'R', theme: 'teal',   cardClass: 'retro-btn' },
+    { name: 'Art',       url: 'https://tmorris01.github.io/gnlinks/subway-surfers.html',  teacher: 'Subway Surfers', letter: 'S', theme: 'purple', cardClass: '' },
 ];
 // ════════════════════════════════════════════════════════════════
 
@@ -360,14 +366,15 @@ const DEFAULTS = [
 function loadClasses() {
     try {
         const saved = JSON.parse(localStorage.getItem('classroomEdits') || 'null');
-        if (saved && saved.length === DEFAULTS.length) {
+        if (saved && Array.isArray(saved)) {
             // name and url always come from DEFAULTS (edit them in the code)
             return DEFAULTS.map((def, i) => ({
-                name:    def.name,
-                url:     def.url,
-                teacher: saved[i].teacher ?? def.teacher,
-                letter:  saved[i].letter  ?? def.letter,
-                theme:   saved[i].theme   ?? def.theme,
+                name:      saved[i].name    ?? def.name,
+                url:       def.url,
+                teacher:   def.teacher,
+                letter:    saved[i].letter  ?? def.letter,
+                theme:     saved[i].theme   ?? def.theme,
+                cardClass: def.cardClass,
             }));
         }
     } catch(e) {}
@@ -376,7 +383,7 @@ function loadClasses() {
 
 function saveClasses(data) {
     // Only persist the editable fields
-    const toSave = data.map(c => ({ teacher: c.teacher, letter: c.letter, theme: c.theme }));
+    const toSave = data.map(c => ({ name: c.name, letter: c.letter, theme: c.theme }));
     localStorage.setItem('classroomEdits', JSON.stringify(toSave));
 }
 
@@ -396,7 +403,7 @@ function renderCards() {
         const t = THEMES[c.theme];
         const card = document.createElement('a');
         card.href = '#';
-        card.className = 'class-card';
+        card.className = 'class-card' + (c.cardClass ? ' ' + c.cardClass : '');
         card.innerHTML = `
             <div class="class-card-inner">
                 <div class="class-header theme-${esc(c.theme)}">
@@ -407,13 +414,13 @@ function renderCards() {
                 </div>
                 <div class="class-body"></div>
                 <div class="class-footer">
-                    <button class="footer-btn" title="Photo" onclick="event.preventDefault()">
+                    <button class="footer-btn" title="Photo" onclick="event.preventDefault(); event.stopPropagation();">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></svg>
                     </button>
-                    <button class="footer-btn" title="Folder" onclick="event.preventDefault()">
+                    <button class="footer-btn" title="Folder" onclick="event.preventDefault(); event.stopPropagation();">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
                     </button>
-                    <button class="footer-btn" title="More" onclick="event.preventDefault()">
+                    <button class="footer-btn" title="More" onclick="event.preventDefault(); event.stopPropagation();">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
                     </button>
                 </div>
@@ -459,8 +466,8 @@ function buildDrawer() {
             <div class="edit-row-body">
                 <div class="edit-row-fields">
                     <div>
-                        <div class="field-label">Teacher Name</div>
-                        <input class="field-input full" type="text" data-field="teacher" data-idx="${i}" value="${esc(c.teacher)}" placeholder="Teacher name">
+                        <div class="field-label">Class Name</div>
+                        <input class="field-input full" type="text" data-field="name" data-idx="${i}" value="${esc(c.name)}" placeholder="Class name">
                     </div>
                     <div>
                         <div class="field-label">Icon Letter</div>
@@ -492,7 +499,7 @@ function buildDrawer() {
             if (field === 'letter') val = val.toUpperCase().slice(0, 2);
             draft[idx][field] = val;
             const row = body.querySelector(`.edit-row[data-index="${idx}"]`);
-            if (field === 'teacher') row.querySelector('.edit-row-teacher').textContent = val;
+            if (field === 'name') row.querySelector('.edit-row-classname').textContent = val;
         });
     });
 
